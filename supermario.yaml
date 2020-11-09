@@ -1,0 +1,22 @@
+version: '3.1'
+
+services:
+  supermario:
+    image: "pengbai/docker-supermario"
+    ports:
+      - "8600:8080"
+    deploy:
+      mode: replicated 
+      replicas: 2
+      placement:
+        constraints: [node.role == worker]
+      labels:
+        - "traefik.enable=true"
+        - "traefik.port=80"
+        - "traefik.backend=supermario"
+        - "traefik.docker.network=traefik-net"
+        - "traefik.backend.loadbalancer.swarm=true"
+        - "traefik.frontend.rule=Host:supermario.4labs.example"
+      restart_policy:
+        condition: on-failure
+        delay: 10s
