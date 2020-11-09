@@ -4,7 +4,7 @@ services:
   supermario:
     image: "pengbai/docker-supermario"
     ports:
-      - "8600:8080"
+      - "8700:8080"
     deploy:
       mode: replicated 
       replicas: 2
